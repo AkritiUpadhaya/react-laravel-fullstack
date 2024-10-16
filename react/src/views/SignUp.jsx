@@ -8,21 +8,22 @@ function SignUp() {
   const passwordRef= useRef()
   const passwordConfirmRef= useRef()
   const {setUser,setToken}= useStateContext()
-  const onSubmit=(e)=>{
-   e.preventDefault()
+  const onSubmit=(ev)=>{
+   ev.preventDefault()
    const payLoad= {
     name: nameRef.current.value,
     email: emailRef.current.value,
     password: passwordRef.current.value,
     password_confirmation: passwordConfirmRef.current.value,
    }
+   console.log(payLoad)
    axiosClient.post('/signUp', payLoad)
    .then(({data})=>{
         setUser(data.user)
         setToken(data.token)
    })
    .catch(err=>{
-    const response= err.response
+    const response= err.response 
     if(response && response.status== 422){
       console.log(response.data.errors)
     }
