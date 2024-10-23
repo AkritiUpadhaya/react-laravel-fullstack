@@ -20,9 +20,13 @@ function Users() {
     })
   }
   return (
+    <>
     <div>
-      users
+      <h1>Users</h1>
+
+      <Link to="/users/new">Add new</Link>
     </div>
+    </>
   )
 }
 
