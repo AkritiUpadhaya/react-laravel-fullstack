@@ -1,19 +1,23 @@
 import axios from 'axios'
 import axiosClient from '../axios-client'
 import React, { useEffect, useState } from 'react'
+import { useStateContext } from '../contexts/ContextProvider'
+import { Link } from 'react-router-dom'
 
 function Users() {
   const [users, setUsers]= useState([])
-  const [loading, setLoading]= useState(false)
+  const [loading, setLoading]= useState(false) 
+  const {setNotification}= useStateContext()
   useEffect(()=>{
    getUsers()
   },[])
-  const onDelete=()=>{
-    if(window.confirm("Are you sure want to delete this user?")){
+  const onDelete=(u)=>{
+    if(!window.confirm("Are you sure want to delete this user?")){
       return
     }
     axiosClient.delete(`/users/${u.id}`)
     .then(()=>{
+      setNotification("User was successfully deleted")
       getUsers()
     })
   }
@@ -64,7 +68,7 @@ function Users() {
               <td>{u.created_at}</td>
               <td>
                 <Link className='btn-edit' to={'/users/'+u.id}>Edit</Link>
-                &nbsp
+                
                 <button onClick={onDelete} className='btn-delete'>Delete</button>
               </td>
              </tr>
