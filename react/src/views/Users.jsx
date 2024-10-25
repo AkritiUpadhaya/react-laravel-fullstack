@@ -69,7 +69,7 @@ function Users() {
               <td>
                 <Link className='btn-edit' to={'/users/'+u.id}>Edit</Link>
                 
-                <button onClick={onDelete} className='btn-delete'>Delete</button>
+                <button onClick={()=> onDelete(u)} className='btn-delete'>Delete</button>
               </td>
              </tr>
             ))}
